@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node (if testing locally)
+node_modules/
+*.log
+npm-debug.log*
+
+# Test outputs
+coverage/
+.nyc_output/
