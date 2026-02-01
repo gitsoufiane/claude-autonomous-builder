@@ -25,24 +25,22 @@ The orchestrator now includes a **self-learning system** that gets smarter with 
 - **Anti-Pattern Detection** - Automatically identifies and prevents common mistakes
 - **Threshold Optimization** - Statistically tunes complexity, time, and context budgets
 
-### Continuous Improvement
+### Project-Specific Learning
 ```
-Project N → Learn → Extract Patterns → Optimize Thresholds
-                ↓
-          Project N+1 (Faster, Better)
+Feature 1 → Complete → Learn
+              ↓
+Feature 2 → Uses Pattern from Feature 1 → Complete → Learn
+              ↓
+Feature 3 → Uses Patterns from Features 1 & 2 → Complete
 ```
 
-**Impact After 10 Projects:**
-- 🚀 20%+ faster development (pattern reuse)
-- 📊 90%+ threshold accuracy (data-driven tuning)
-- 🎯 85-90% autonomy score (improved decision making)
-- 📚 3-5 proven patterns in library
+**Impact Within a Project:**
+- 📊 Pattern library builds as features are implemented
+- 🎯 Learn from early features to improve later ones
+- 📚 Project-specific best practices documented
+- 🔍 Anti-patterns identified and prevented
 
-**Impact After 100 Projects:**
-- 🚀 30%+ faster development
-- 📊 95%+ threshold accuracy
-- 🎯 95%+ autonomy score
-- 📚 30+ proven patterns
+**Note:** Each project has its own isolated knowledge base. Learnings accumulate within the project but do not transfer between projects.
 
 See [LEARNING-SYSTEM-SUMMARY.md](LEARNING-SYSTEM-SUMMARY.md) for full details.
 
@@ -190,101 +188,42 @@ The system uses specialized agents that work together in phases:
 
 ### One-Time Setup (Do This Once)
 
-#### 1. Install MCP Servers (Optional but Recommended)
-
-For enhanced learning capabilities:
+Clone or download this repository to use as a template:
 
 ```bash
-npm install -g @modelcontextprotocol/server-sqlite
-npm install -g @modelcontextprotocol/server-filesystem
-```
-
-#### 2. Set Up Global Knowledge Base
-
-This creates a centralized knowledge base that all your projects share:
-
-```bash
-# Clone this repo (or download it)
 git clone https://github.com/yourusername/claude-autonomous-builder.git
-cd claude-autonomous-builder
-
-# Initialize the knowledge base
-.claude/scripts/init-knowledge-base.sh
-
-# Create a global symlink
-ln -s "$(pwd)/.claude" ~/.claude-global
 ```
 
-**Why Global?** The knowledge base learns from ALL your projects, making each new project smarter than the last.
+**Note:** Each project gets its own isolated `.claude` configuration and knowledge base. Projects do not share learnings.
 
 ### Per-Project Setup (Do This for Each New Project)
 
-#### Quick Setup Script (Easiest) 🚀
+#### Setup Method: Copy to Project (Local Isolation)
 
-Use the automated setup script:
-
-```bash
-# From the claude-autonomous-builder directory
-.claude/scripts/setup-project.sh my-new-project
-```
-
-This script will:
-- ✅ Create project directory
-- ✅ Initialize git repository
-- ✅ Link to global config or copy locally
-- ✅ Create GitHub repository (optional)
-- ✅ Create initial README.md
-
-**Or manually:**
-
-#### Option A: Symlink to Global Config (Recommended)
-
-**Best for:** Sharing learnings across all projects
+Each project gets its own `.claude` configuration with an isolated knowledge base:
 
 ```bash
 # In your new project directory
 cd ~/my-new-project
 
-# Create symlink to global config
-ln -s ~/.claude-global .claude
+# Copy the orchestrator configuration
+cp -r /path/to/claude-autonomous-builder/.claude .
+
+# Initialize project-specific knowledge base
+.claude/scripts/init-knowledge-base.sh
 
 # Verify it works
 ls -la .claude/
 ```
 
-**Pros:**
-- ✅ All projects share the same knowledge base
-- ✅ Patterns learned in one project help others
-- ✅ Single source of truth for improvements
-- ✅ Easy updates (update once, affects all projects)
-
-**Cons:**
-- ⚠️ All projects need the same orchestrator version
-
-#### Option B: Copy to Project (Project-Specific)
-
-**Best for:** Project-specific customization or isolation
-
-```bash
-# In your new project directory
-cd ~/my-new-project
-
-# Copy the config
-cp -r /path/to/claude-autonomous-builder/.claude .
-
-# Initialize project-specific knowledge base
-.claude/scripts/init-knowledge-base.sh
-```
-
-**Pros:**
-- ✅ Full control over this project's configuration
+**This approach ensures:**
+- ✅ Complete project isolation
+- ✅ No cross-contamination between projects
+- ✅ Full control over project-specific configuration
 - ✅ Can customize agents/workflow per project
-- ✅ Isolated from other projects
+- ✅ Project's learnings stay with the project
 
-**Cons:**
-- ⚠️ Each project has separate knowledge base
-- ⚠️ No cross-project learning
-- ⚠️ Must update each project individually
+**Note:** The knowledge base (`.claude/knowledge/orchestrator.db`) learns only from the current project. Patterns and learnings do not transfer between projects.
 
 ### Using the Orchestrator
 
@@ -527,50 +466,49 @@ exit
 - ✅ **Exact resume point** - Continues from last completed issue
 - ✅ **Progress preserved** - Verification loop counter, agent history maintained
 - ✅ **GitHub sync** - Handles any manual changes between sessions
+- ✅ **Project isolation** - Knowledge base learns only from this project
 
 ### Using Learning Features
 
-#### Search for Patterns Before Starting
+#### During Project Development
 
 ```bash
-# Get recommendations for your project
-/patterns recommend "Build a REST API with authentication"
+# After implementing several features, search for patterns
+/patterns recommend "Add payment integration"
 
-# Search by domain
+# Search by domain (from current project's patterns)
 /patterns search domain=authentication
 
 # Get specific pattern details
 /patterns get auth-jwt-pattern-001
 
-# View library statistics
+# View library statistics (current project only)
 /patterns stats
 ```
 
-#### After Your First Project
+#### After Project Completion
 
 ```bash
-# Learning happens automatically, but you can also:
+# Learning happens automatically at the end, but you can also:
 /reflect
 
 # This generates docs/LEARNING-REPORT.md with:
-# - What worked well
-# - Patterns extracted
-# - Anti-patterns found
-# - Recommendations for improvement
+# - What worked well in this project
+# - Patterns extracted from this project
+# - Anti-patterns found in this project
+# - Recommendations for future features
+
+# Note: Patterns are stored in .claude/knowledge/ for this project only
 ```
 
-#### After 5+ Projects
+#### Pattern Scope
 
-```bash
-# Run threshold optimization
-/optimize
+**Important:** Patterns learned in this project stay with this project. They can help with:
+- Adding new features to this project later
+- Maintaining this project
+- Understanding what worked well
 
-# This generates docs/THRESHOLD-OPTIMIZATION-REPORT.md with:
-# - Recommended threshold adjustments
-# - Statistical analysis
-# - Confidence levels
-# - Expected impact
-```
+**Patterns do NOT transfer to other projects.**
 
 ### Typical Workflow
 
@@ -582,8 +520,9 @@ mkdir my-project && cd my-project
 git init
 gh repo create my-project --public --source=. --remote=origin
 
-# 3. Symlink to global config (if using global setup)
-ln -s ~/.claude-global .claude
+# 3. Copy orchestrator config
+cp -r /path/to/claude-autonomous-builder/.claude .
+.claude/scripts/init-knowledge-base.sh
 
 # 4. Open in Claude Code
 code .
@@ -674,9 +613,9 @@ git push -u origin main
 # Verify .claude directory exists
 ls -la .claude/
 
-# If symlink is broken:
-rm .claude
-ln -s ~/.claude-global .claude
+# If missing, copy from template:
+cp -r /path/to/claude-autonomous-builder/.claude .
+.claude/scripts/init-knowledge-base.sh
 ```
 
 **"Knowledge base not initialized"**
@@ -966,23 +905,20 @@ cat .claude/knowledge/orchestrator.db  # Database exists
 .claude/scripts/init-knowledge-base.sh # Reinitialize if needed
 ```
 
-### Global vs Local Setup
+### Project Setup
 
-**Global (Recommended):**
+**Local (Project-Specific - Only Option):**
 ```bash
-# One-time setup
-ln -s /path/to/claude-autonomous-builder/.claude ~/.claude-global
-
-# Per project
-ln -s ~/.claude-global .claude
-```
-
-**Local (Per Project):**
-```bash
-# Per project
+# Per project - copy and initialize
+cd ~/your-project
 cp -r /path/to/claude-autonomous-builder/.claude .
 .claude/scripts/init-knowledge-base.sh
+
+# Verify
+ls -la .claude/knowledge/orchestrator.db
 ```
+
+**Note:** Each project has its own isolated knowledge base. Learnings do not transfer between projects.
 
 ---
 

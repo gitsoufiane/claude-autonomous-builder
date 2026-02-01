@@ -369,7 +369,7 @@ Task Complexity Analyzer: Score each issue
 
 ### Overview
 
-The orchestrator maintains a **persistent knowledge base** in `.claude/knowledge/` that accumulates learnings across all projects.
+The orchestrator maintains a **persistent knowledge base** in `.claude/knowledge/` that accumulates learnings from the current project only. Each project has its own isolated knowledge base.
 
 ### Structure
 

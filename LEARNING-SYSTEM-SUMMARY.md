@@ -2,7 +2,7 @@
 
 ## What Was Built
 
-A **meta-learning architecture** that transforms the autonomous orchestrator from a stateless tool into a **continuously improving system**. Each project compounds knowledge for the next.
+A **meta-learning architecture** that enables the autonomous orchestrator to learn from project execution. Each project builds its own knowledge base with patterns, anti-patterns, and optimized thresholds specific to that project.
 
 ## Research Foundation
 
@@ -208,38 +208,36 @@ This is **organizational muscle**, not one-off optimization.
 /reflect
 ```
 
-### Before Starting New Project
+### Within a Project
 
 ```bash
-# Get pattern recommendations
-/patterns recommend "Build a REST API with user authentication"
+# After completing several features, patterns accumulate
+# Get pattern recommendations for next feature
+/patterns recommend "Add rate limiting to API"
 
-# Output:
-# 1. JWT Authentication Pattern (95% success, 65K tokens)
-# 2. REST CRUD Pattern (97% success, 40K tokens)
-# 3. Rate Limiting Pattern (94% success, 30K tokens)
+# Output (if patterns exist from earlier features):
+# 1. JWT Authentication Pattern (from feature #2)
+# 2. REST CRUD Pattern (from feature #1)
 
 # Get pattern details
 /patterns get auth-jwt-pattern-001
 # Full implementation guide with code examples
 ```
 
-### After 10 Projects
+### Project-Specific Learning
 
 ```bash
-# Run threshold optimization
-/optimize
+# Learning is scoped to current project only
+# After project completion, patterns remain in:
+# .claude/knowledge/orchestrator.db
+# .claude/knowledge/patterns/
 
-# Output:
-# THRESHOLD-OPTIMIZATION-REPORT.md
-# Recommendations:
-# - Complexity MEDIUM: 1500 → 1200 (High confidence)
-# - Time Budget Phase 3: 240 → 300 min (High confidence)
+# These patterns help with:
+# - Maintenance work on this project
+# - Adding new features later
+# - Understanding what worked well
 
-# Review and approve
-cat docs/THRESHOLD-OPTIMIZATION-REPORT.md
-# User approves changes
-# Thresholds updated in .claude/CLAUDE.md
+# Note: Patterns do NOT transfer to other projects
 ```
 
 ## MCP Integration
