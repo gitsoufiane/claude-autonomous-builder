@@ -1,0 +1,14 @@
+{
+  "name": "orchestrator",
+  "version": "1.0.0",
+  "description": "Autonomous project orchestrator with resumability",
+  "author": "Claude Autonomous Builder",
+  "skills": [
+    "resume",
+    "checkpoint",
+    "status"
+  ],
+  "commands": [
+    "orchestrator"
+  ]
+}

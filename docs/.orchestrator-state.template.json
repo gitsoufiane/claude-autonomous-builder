@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "project": {
+    "name": "",
+    "idea": "",
+    "started_at": "",
+    "last_updated": ""
+  },
+  "phase": {
+    "current": 0,
+    "name": "Infrastructure Setup",
+    "started_at": "",
+    "last_checkpoint": "",
+    "status": "not_started"
+  },
+  "phases_completed": [],
+  "work_progress": {
+    "total_issues": 0,
+    "completed_issues": [],
+    "in_progress_issue": null,
+    "open_issues": [],
+    "bug_issues": [],
+    "last_closed_at": null
+  },
+  "context_tracking": {
+    "total_budget": 200000,
+    "used": 0,
+    "percentage": 0,
+    "last_issue_context": 0,
+    "approaching_limit": false
+  },
+  "verification": {
+    "loop_count": 0,
+    "max_loops": 3,
+    "last_attempt_at": null,
+    "failures": []
+  },
+  "agents_invoked": [],
+  "artifacts_created": [],
+  "resume_instructions": "Project initialization - no work started yet"
+}
