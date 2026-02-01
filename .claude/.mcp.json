@@ -1,0 +1,54 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schema/mcp.json",
+  "version": "1.0.0",
+  "description": "MCP servers for the Autonomous Orchestrator learning system",
+  "mcpServers": {
+    "sqlite-knowledge-base": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-sqlite",
+        "--db-path",
+        "~/.claude/knowledge/orchestrator.db"
+      ],
+      "description": "SQLite database for cross-project learning and pattern storage",
+      "disabled": false
+    },
+    "filesystem-patterns": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-filesystem",
+        "~/.claude/knowledge/patterns",
+        "~/.claude/knowledge/anti-patterns"
+      ],
+      "description": "File access for pattern library management",
+      "disabled": false
+    },
+    "github-analytics": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "description": "GitHub integration for cross-repo pattern discovery",
+      "disabled": true,
+      "notes": "Enable after setting GITHUB_TOKEN environment variable"
+    }
+  },
+  "setup": {
+    "instructions": [
+      "Install required MCP servers:",
+      "  npm install -g @modelcontextprotocol/server-sqlite",
+      "  npm install -g @modelcontextprotocol/server-filesystem",
+      "  npm install -g @modelcontextprotocol/server-github",
+      "",
+      "Initialize the knowledge base:",
+      "  .claude/scripts/init-knowledge-base.sh",
+      "",
+      "Configure GitHub token (optional):",
+      "  export GITHUB_TOKEN=your_token_here",
+      "  Edit .mcp.json and set disabled: false for github-analytics"
+    ]
+  }
+}

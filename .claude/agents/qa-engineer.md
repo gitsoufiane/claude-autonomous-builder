@@ -62,7 +62,7 @@ grep -rn "password.*=.*['\"]" src/ || echo "No hardcoded passwords ✓"
 grep -rn "TODO.*security" src/ || echo "No security TODOs ✓"
 ```
 
-### 5. Manual Testing Checklist
+### 6. Manual Testing Checklist
 
 For each feature, verify:
 
@@ -85,7 +85,7 @@ For each feature, verify:
 - [ ] No data leaks between users
 - [ ] Sensitive data is encrypted/hashed
 
-### 6. Create Bug Issues
+### 7. Create Bug Issues
 
 For each bug found, create a detailed GitHub issue:
 
@@ -127,7 +127,7 @@ gh issue create \
   --label "bug,priority:high"
 ```
 
-### 7. Priority Classification for Bugs
+### 8. Priority Classification for Bugs
 
 | Priority | Criteria |
 |----------|----------|
@@ -136,7 +136,7 @@ gh issue create \
 | `priority:medium` | Feature degraded but usable, has workaround |
 | `priority:low` | Minor issue, cosmetic, edge case |
 
-### 8. Generate QA Report
+### 9. Generate QA Report
 
 Create `docs/QA-REPORT.md`:
 
@@ -237,12 +237,84 @@ Use UUID or obfuscated ID in token payload instead of sequential database ID.
   --label "bug,priority:critical,security"
 ```
 
+## Enhanced QA Workflow
+
+### Complete Flow
+
+```
+1. Run unit/integration tests
+   npm run test:coverage
+   ↓
+2. Analyze coverage (target: 80%+)
+   ↓
+3. Static analysis (lint, typecheck)
+   ↓
+4. Delegate to e2e-runner agent (NEW)
+   "Generate and run E2E tests for all features"
+   ↓
+5. Basic security checks (grep patterns)
+   ↓
+6. Delegate to security-reviewer agent (NEW)
+   "Comprehensive security audit"
+   ↓
+7. Create bug issues for failures
+   ↓
+8. Generate QA report
+```
+
+### Example QA Session
+
+```bash
+# 1. Unit/Integration tests
+npm run test:coverage
+# Result: 95 tests passing, 87% coverage ✓
+
+# 2. Static analysis
+npm run lint
+npm run typecheck
+# Result: No errors ✓
+
+# 3. E2E Tests (delegate)
+# Delegate to e2e-runner: "Generate and run E2E tests"
+# Result: 15/16 tests passing, 1 flaky test identified
+
+# 4. Basic security
+npm audit
+# Result: 2 moderate vulnerabilities in dev dependencies
+
+# 5. Comprehensive security (delegate)
+# Delegate to security-reviewer: "Comprehensive security audit"
+# Result: 1 CRITICAL - Hardcoded API key in config.ts
+#         2 HIGH - Missing rate limiting on endpoints
+
+# 6. Create bug issues
+gh issue create --title "[Bug][Security] Hardcoded API key in config.ts" \
+  --label "bug,priority:critical,security" \
+  --body "..."
+
+gh issue create --title "[Bug] Missing rate limiting on API endpoints" \
+  --label "bug,priority:high,security" \
+  --body "..."
+
+gh issue create --title "[Bug] Flaky E2E test: user login flow" \
+  --label "bug,priority:medium" \
+  --body "..."
+
+# 7. Generate QA report
+# Create docs/QA-REPORT.md with all findings
+```
+
 ## Output Checklist
 
 Before completing QA phase:
 - [ ] Full test suite executed
-- [ ] Coverage report generated
-- [ ] Security audit completed
+- [ ] Coverage report generated (80%+ verified)
+- [ ] Static analysis completed (lint, typecheck)
+- [ ] E2E tests executed (delegated to e2e-runner) ✨NEW
+- [ ] E2E test report generated with artifacts ✨NEW
+- [ ] Basic security checks completed
+- [ ] Comprehensive security audit completed (delegated to security-reviewer) ✨NEW
 - [ ] All bugs documented as GitHub issues
+- [ ] Bug priorities assigned correctly
 - [ ] QA report created at `docs/QA-REPORT.md`
-- [ ] Bugs prioritized correctly
+- [ ] Security issues flagged with `security` label ✨NEW

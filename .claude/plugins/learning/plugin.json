@@ -1,0 +1,40 @@
+{
+  "name": "learning",
+  "version": "1.0.0",
+  "description": "Self-learning and continuous improvement for the autonomous orchestrator",
+  "author": "Claude Autonomous Builder",
+  "skills": [
+    {
+      "name": "reflect",
+      "description": "Trigger post-project learning and retrospective analysis",
+      "file": "skills/reflect.md"
+    },
+    {
+      "name": "patterns",
+      "description": "Search and retrieve solution patterns from the knowledge base",
+      "file": "skills/patterns.md"
+    },
+    {
+      "name": "optimize",
+      "description": "Run threshold optimization analysis on accumulated project data",
+      "file": "skills/optimize.md"
+    }
+  ],
+  "settings": {
+    "auto_learn": {
+      "type": "boolean",
+      "default": true,
+      "description": "Automatically trigger learning phase after project completion"
+    },
+    "min_projects_for_optimization": {
+      "type": "number",
+      "default": 5,
+      "description": "Minimum projects required before threshold optimization"
+    },
+    "pattern_extraction_threshold": {
+      "type": "number",
+      "default": 500,
+      "description": "Minimum complexity score for pattern extraction"
+    }
+  }
+}
